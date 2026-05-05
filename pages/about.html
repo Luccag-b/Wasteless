@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Fale Conosco</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 10px;
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: none;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .contador {
+      font-size: 12px;
+      text-align: right;
+      color: #94a3b8;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #22c55e;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #16a34a;
+    }
+
+    .msg {
+      margin-top: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .erro { color: red; }
+    .sucesso { color: #22c55e; }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Fale Conosco</h2>
+
+  <form id="formContato">
+
+    <input type="text" id="nome" placeholder="Seu nome" required>
+    <input type="email" id="email" placeholder="Seu email" required>
+    <input type="tel" id="telefone" placeholder="Telefone (opcional)">
+
+    <select id="assunto" required>
+      <option value="">Selecione o assunto</option>
+      <option value="duvida">Dúvida</option>
+      <option value="suporte">Suporte</option>
+      <option value="financeiro">Financeiro</option>
+      <option value="outro">Outro</option>
+    </select>
+
+    <textarea id="mensagem" rows="4" maxlength="200" placeholder="Digite sua mensagem..." required></textarea>
+    <div class="contador" id="contador">0 / 200</div>
+
+    <button type="submit">Enviar mensagem</button>
+
+  </form>
+
+  <div class="msg" id="msg"></div>
+</div>
+
+<script>
+  const form = document.getElementById("formContato");
+  const msg = document.getElementById("msg");
+  const mensagem = document.getElementById("mensagem");
+  const contador = document.getElementById("contador");
+
+  mensagem.addEventListener("input", () => {
+    contador.textContent = mensagem.value.length + " / 200";
+  });
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("email").value;
+    const assunto = document.getElementById("assunto").value;
+    const texto = mensagem.value;
+
+    if (!nome || !email || !assunto || !texto) {
+      msg.innerHTML = "Preencha todos os campos obrigatórios!";
+      msg.className = "msg erro";
+      return;
+    }
+
+    if (texto.length < 10) {
+      msg.innerHTML = "Mensagem muito curta!";
+      msg.className = "msg erro";
+      return;
+    }
+
+    msg.innerHTML = "Mensagem enviada com sucesso!";
+    msg.className = "msg sucesso";
+
+    form.reset();
+    contador.textContent = "0 / 200";
+  });
+</script>
+
+</body>
+</html>
