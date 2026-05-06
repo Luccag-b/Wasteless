@@ -1,0 +1,82 @@
+ :root {
+  --brand-dark: #212529;
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
+  --card-border: #e2e8f0;
+  --muted-text: #6b7280;
+ }
+
+ body {
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  background: #f8f9fa;
+  color: #212529;
+ }
+
+ .site-header,
+ .site-footer {
+  background: var(--brand-dark);
+  color: #ffffff;
+ }
+
+ .site-header .nav-link,
+ .site-footer .nav-link {
+  color: #ffffff;
+ }
+
+ .site-header .nav-link:hover,
+ .site-footer .nav-link:hover {
+  color: #d1e7dd;
+ }
+
+ .form-card {
+  background: #ffffff;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 24px;
+ }
+
+ .form-card input,
+ .form-card select,
+ .form-card textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid var(--card-border);
+ }
+
+ .form-card textarea {
+  resize: none;
+ }
+
+ .form-helper {
+  font-size: 12px;
+  text-align: right;
+  color: var(--muted-text);
+ }
+
+ .btn-accent {
+  background: var(--accent);
+  border: none;
+  color: #ffffff;
+  font-weight: 600;
+ }
+
+ .btn-accent:hover {
+  background: var(--accent-hover);
+  color: #ffffff;
+ }
+
+ .status-msg {
+  margin-top: 12px;
+  text-align: center;
+  font-weight: 600;
+ }
+
+ .status-msg.error {
+  color: #ef4444;
+ }
+
+ .status-msg.success {
+  color: #22c55e;
+ }
