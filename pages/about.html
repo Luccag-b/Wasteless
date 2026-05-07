@@ -2,140 +2,172 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fale Conosco</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      background: #1e293b;
-      padding: 25px;
-      border-radius: 10px;
-      width: 400px;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 5px;
-      border: none;
-    }
-
-    textarea {
-      resize: none;
-    }
-
-    .contador {
-      font-size: 12px;
-      text-align: right;
-      color: #94a3b8;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #22c55e;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #16a34a;
-    }
-
-    .msg {
-      margin-top: 10px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .erro { color: red; }
-    .sucesso { color: #22c55e; }
-  </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h2>Fale Conosco</h2>
+  <div>
 
-  <form id="formContato">
+    <h2>Fale Conosco</h2>
 
-    <input type="text" id="nome" placeholder="Seu nome" required>
-    <input type="email" id="email" placeholder="Seu email" required>
-    <input type="tel" id="telefone" placeholder="Telefone (opcional)">
+    <form id="formContato">
 
-    <select id="assunto" required>
-      <option value="">Selecione o assunto</option>
-      <option value="duvida">Dúvida</option>
-      <option value="suporte">Suporte</option>
-      <option value="financeiro">Financeiro</option>
-      <option value="outro">Outro</option>
-    </select>
+      <label>Nome</label>
+      <input type="text" id="nome" placeholder="Seu nome">
 
-    <textarea id="mensagem" rows="4" maxlength="200" placeholder="Digite sua mensagem..." required></textarea>
-    <div class="contador" id="contador">0 / 200</div>
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Seu email">
 
-    <button type="submit">Enviar mensagem</button>
+      <label>Telefone</label>
+      <input type="tel" id="telefone" placeholder="(11) 99999-9999">
 
-  </form>
+      <label>Assunto</label>
+      <select id="assunto">
+        <option value="">Selecione</option>
+        <option>Dúvida</option>
+        <option>Suporte</option>
+        <option>Financeiro</option>
+        <option>Outro</option>
+      </select>
 
-  <div class="msg" id="msg"></div>
-</div>
+      <label>Mensagem</label>
+      <textarea 
+        id="mensagem" 
+        rows="5" 
+        maxlength="200" 
+        placeholder="Digite sua mensagem...">
+      </textarea>
+
+      <div id="contador">
+        0 / 200
+      </div>
+
+      <button type="submit" id="botao">
+        Enviar mensagem
+      </button>
+
+    </form>
+
+    <div id="msg"></div>
+
+    <div>
+
+      <h3>Últimas mensagens</h3>
+
+      <div id="listaMensagens"></div>
+
+    </div>
+
+  </div>
 
 <script>
-  const form = document.getElementById("formContato");
-  const msg = document.getElementById("msg");
-  const mensagem = document.getElementById("mensagem");
-  const contador = document.getElementById("contador");
 
-  mensagem.addEventListener("input", () => {
-    contador.textContent = mensagem.value.length + " / 200";
-  });
+const form = document.getElementById("formContato");
+const msg = document.getElementById("msg");
+const contador = document.getElementById("contador");
+const mensagem = document.getElementById("mensagem");
+const lista = document.getElementById("listaMensagens");
+const botao = document.getElementById("botao");
 
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
+let mensagens = JSON.parse(localStorage.getItem("mensagens")) || [];
 
-    const nome = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
-    const assunto = document.getElementById("assunto").value;
-    const texto = mensagem.value;
+renderizarMensagens();
 
-    if (!nome || !email || !assunto || !texto) {
-      msg.innerHTML = "Preencha todos os campos obrigatórios!";
-      msg.className = "msg erro";
-      return;
-    }
+mensagem.addEventListener("input", () => {
 
-    if (texto.length < 10) {
-      msg.innerHTML = "Mensagem muito curta!";
-      msg.className = "msg erro";
-      return;
-    }
+  contador.innerHTML = `${mensagem.value.length} / 200`;
 
-    msg.innerHTML = "Mensagem enviada com sucesso!";
-    msg.className = "msg sucesso";
+});
+
+form.addEventListener("submit", function(e){
+
+  e.preventDefault();
+
+  const nome = document.getElementById("nome").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const telefone = document.getElementById("telefone").value.trim();
+  const assunto = document.getElementById("assunto").value;
+  const texto = mensagem.value.trim();
+
+  if(!nome || !email || !assunto || !texto){
+
+    mostrarMensagem("Preencha todos os campos obrigatórios!");
+    return;
+
+  }
+
+  if(texto.length < 10){
+
+    mostrarMensagem("Mensagem muito curta!");
+    return;
+
+  }
+
+  botao.disabled = true;
+  botao.innerHTML = "Enviando...";
+
+  setTimeout(() => {
+
+    const novaMensagem = {
+      nome,
+      email,
+      telefone,
+      assunto,
+      texto,
+      data: new Date().toLocaleString()
+    };
+
+    mensagens.unshift(novaMensagem);
+
+    localStorage.setItem("mensagens", JSON.stringify(mensagens));
+
+    renderizarMensagens();
+
+    mostrarMensagem("Mensagem enviada com sucesso!");
 
     form.reset();
-    contador.textContent = "0 / 200";
+
+    contador.innerHTML = "0 / 200";
+
+    botao.disabled = false;
+    botao.innerHTML = "Enviar mensagem";
+
+  }, 1500);
+
+});
+
+function mostrarMensagem(texto){
+
+  msg.innerHTML = texto;
+
+}
+
+function renderizarMensagens(){
+
+  lista.innerHTML = "";
+
+  mensagens.slice(0,5).forEach(item => {
+
+    lista.innerHTML += `
+
+      <div>
+
+        <strong>${item.nome}</strong>
+
+        <p>${item.texto}</p>
+
+        <small>${item.data}</small>
+
+      </div>
+
+    `;
+
   });
+
+}
+
 </script>
 
 </body>
