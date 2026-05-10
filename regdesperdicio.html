@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+ 
+<body>
+   
+    <h2>Registro de Desperdícios</h2>
+
+<form>
+
+  <div>
+
+    <p><h3>Data do desperdício:</h3></p>
+
+    <input type="date" name="data_desperdicio" id="data" required>
+
+  </div>
+
+  
+  <div>
+
+    <p><h3>Tipo do alimento:</h3></p>
+
+    <label class="botao"> <input type="radio" name="pergunta1" value="frutas" required> Frutas </label> <br>
+
+    <label class="botao"> <input type="radio" name="pergunta1" value="carnes"> Carnes </label> <br>
+
+    <label class="botao"> <input type="radio" name="pergunta1" value="laticinios"> Laticínios </label> <br>
+
+    <label class="botao"> <input type="radio" name="pergunta1" value="graos"> Grãos </label> <br>
+
+    <label class="botao"> <input type="radio" name="pergunta1" value="bebidas"> Bebidas </label> <br>
+
+    <label class="botao"> <input type="radio" name="pergunta1" value="outros"> Outros </label> <br>
+
+  </div>
+
+
+  
+  
+  <div>
+
+    <p><h3>Quantidade aproximada:</h3></p>
+
+    <label class="botao"><input type="radio" name="pergunta2" value="até 1kg/l" required> Até 1 kg/l</label> <br>
+    <label class="botao"><input type="radio" name="pergunta2" value="até 5kg/l"> Até 5 kg/l</label> <br>
+    <label class="botao"><input type="radio" name="pergunta2" value="até 10kg/l"> Até 10 kg/l</label> <br>
+    <label class="botao"><input type="radio" name="pergunta2" value="até 20kg/l"> Até 20 kg/l</label> <br>
+    <label class="botao"><input type="radio" name="pergunta2" value="até 20+kg/l"> Mais de 20 kg/l</label> <br>
+
+  </div>
+
+
+ 
+  <div>
+
+    <p><h3>Motivo do desperdício:</h3></p>
+
+    <label class="botao"><input type="radio" name="pergunta3" value="venceu" required> Venceu</label> <br>
+    <label class="botao"><input type="radio" name="pergunta3" value="estragou"> Estragou</label> <br>
+    <label class="botao"><input type="radio" name="pergunta3" value="excesso"> Excesso</label> <br>
+    <label class="botao"><input type="radio" name="pergunta3" value="armazenamento incorreto"> Armazenamento incorreto</label> <br>
+    <label class="botao"><input type="radio" name="pergunta3" value="outros"> Outros</label> <br>
+
+  </div>
+
+
+  
+  <div>
+
+    <p><h3>Ele poderia ter sido doado?</h3></p>
+
+    <label class="botao"><input type="radio" name="pergunta4" value="sim" required> Sim</label> <br>
+    <label class="botao"><input type="radio" name="pergunta4" value="nao"> Não</label> <br>
+    <label class="botao"><input type="radio" name="pergunta4" value="talvez"> Talvez</label> <br>
+    <label class="botao"><input type="radio" name="pergunta4" value="nao sei"> Não sei</label> <br>
+    
+
+  </div>
+
+
+  
+  <div>
+
+    <p><h3>Frequência do desperdício:</h3></p>
+
+    <label class="botao"><input type="radio" name="pergunta5" value="diario" required> Diário</label> <br>
+    <label class="botao"><input type="radio" name="pergunta5" value="semanal"> Semanal</label> <br>
+    <label class="botao"><input type="radio" name="pergunta5" value="mensal"> Mensal</label> <br>
+    <label class="botao"><input type="radio" name="pergunta5" value="raro"> Raramente</label> <br>
+    <label class="botao"><input type="radio" name="pergunta5" value="primeira vez"> Primeira vez</label> <br>
+
+  </div>
+  <hr>
+
+
+ <button type="button" onclick="mostrar()">Enviar</button>
+
+<p id="resultado"></p>
+
+<script>
+  function mostrar(){
+
+    if(
+        document.forms[0].pergunta1.value == "" ||
+        document.forms[0].pergunta2.value == "" ||
+        document.forms[0].pergunta3.value == "" ||
+        document.forms[0].pergunta4.value == "" ||
+        document.forms[0].pergunta5.value == "" ||
+        document.forms[0].data_desperdicio.value == ""
+    ){
+
+        alert("Responda todas as perguntas.");
+
+    }
+
+    else{
+        document.getElementById("resultado").innerHTML =
+        " | Data: " + document.forms[0].data_desperdicio.value + "<br>" +
+        " | Tipo do alimento: " + document.forms[0].pergunta1.value + "<br>" +
+        " | Quantidade desperdiçada: " + document.forms[0].pergunta2.value + "<br>" +
+        " | Motivo: " + document.forms[0].pergunta3.value + "<br>" +
+        " | Poderia ter sido doado: " + document.forms[0].pergunta4.value + "<br>" +
+        " | Frequência do desperdício: " + document.forms[0].pergunta5.value;
+
+    }
+
+
+  }
+
+</script>
+</form>
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fale Conosco</title>
+</head>
+
+<body>
+
+  <div>
+
+    <h2>Fale Conosco</h2>
+
+    <form id="formContato">
+
+      <label>Nome</label>
+      <input type="text" id="nome" placeholder="Seu nome">
+
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Seu email">
+
+      <label>Telefone</label>
+      <input type="tel" id="telefone" placeholder="(11) 99999-9999">
+
+      <label>Assunto</label>
+      <select id="assunto">
+        <option value="">Selecione</option>
+        <option>Dúvida</option>
+        <option>Suporte</option>
+        <option>Financeiro</option>
+        <option>Outro</option>
+      </select>
+
+      <label>Mensagem</label>
+      <textarea 
+        id="mensagem" 
+        rows="5" 
+        maxlength="200" 
+        placeholder="Digite sua mensagem...">
+      </textarea>
+
+      <div id="contador">
+        0 / 200
+      </div>
+
+      <button type="submit" id="botao">
+        Enviar mensagem
+      </button>
+
+    </form>
+
+    <div id="msg"></div>
+
+    <div>
+
+      <h3>Últimas mensagens</h3>
+
+      <div id="listaMensagens"></div>
+
+    </div>
+
+  </div>
+
+<script>
+
+const form = document.getElementById("formContato");
+const msg = document.getElementById("msg");
+const contador = document.getElementById("contador");
+const mensagem = document.getElementById("mensagem");
+const lista = document.getElementById("listaMensagens");
+const botao = document.getElementById("botao");
+
+let mensagens = JSON.parse(localStorage.getItem("mensagens")) || [];
+
+renderizarMensagens();
+
+mensagem.addEventListener("input", () => {
+
+  contador.innerHTML = `${mensagem.value.length} / 200`;
+
+});
+
+form.addEventListener("submit", function(e){
+
+  e.preventDefault();
+
+  const nome = document.getElementById("nome").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const telefone = document.getElementById("telefone").value.trim();
+  const assunto = document.getElementById("assunto").value;
+  const texto = mensagem.value.trim();
+
+  if(!nome || !email || !assunto || !texto){
+
+    mostrarMensagem("Preencha todos os campos obrigatórios!");
+    return;
+
+  }
+
+  if(texto.length < 10){
+
+    mostrarMensagem("Mensagem muito curta!");
+    return;
+
+  }
+
+  botao.disabled = true;
+  botao.innerHTML = "Enviando...";
+
+  setTimeout(() => {
+
+    const novaMensagem = {
+      nome,
+      email,
+      telefone,
+      assunto,
+      texto,
+      data: new Date().toLocaleString()
+    };
+
+    mensagens.unshift(novaMensagem);
+
+    localStorage.setItem("mensagens", JSON.stringify(mensagens));
+
+    renderizarMensagens();
+
+    mostrarMensagem("Mensagem enviada com sucesso!");
+
+    form.reset();
+
+    contador.innerHTML = "0 / 200";
+
+    botao.disabled = false;
+    botao.innerHTML = "Enviar mensagem";
+
+  }, 1500);
+
+});
+
+function mostrarMensagem(texto){
+
+  msg.innerHTML = texto;
+
+}
+
+function renderizarMensagens(){
+
+  lista.innerHTML = "";
+
+  mensagens.slice(0,5).forEach(item => {
+
+    lista.innerHTML += `
+
+      <div>
+
+        <strong>${item.nome}</strong>
+
+        <p>${item.texto}</p>
+
+        <small>${item.data}</small>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Usuário</title>
+</head>
+
+<body>
+
+  <h1>Cadastro</h1>
+
+  <form>
+
+    <fieldset>
+
+      <legend>Dados</legend>
+
+      <label>Nome completo</label>
+      <input type="text">
+
+      <label>Email</label>
+      <input type="email">
+
+      <label>Senha</label>
+      <input type="password">
+
+      <label>Confirmar senha</label>
+      <input type="password">
+
+    </fieldset>
+
+    <fieldset>
+
+      <legend>Perfil</legend>
+
+      <label>Perfil</label>
+      <select>
+        <option>Selecione o perfil</option>
+        <option>Gerente</option>
+        <option>Supervisor</option>
+        <option>Funcionário</option>
+      </select>
+
+      <label>Setor</label>
+      <select>
+        <option>Setor</option>
+        <option>TI</option>
+        <option>RH</option>
+        <option>Financeiro</option>
+      </select>
+
+    </fieldset>
+
+    <fieldset>
+
+      <legend>Observações</legend>
+
+      <textarea rows="3" placeholder="Opcional..."></textarea>
+
+    </fieldset>
+
+    <button type="submit">
+      Cadastrar
+    </button>
+
+  </form>
+
+</body>
+</html>
