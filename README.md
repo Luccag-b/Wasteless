@@ -36,21 +36,3 @@ Wasteless-2/
 │  ├─ 04_relatorios_automaticos.html
 │  └─ 05_fale_conosco.html
 ```
-
-## Como Usar
-
-1. Abra `01_cadastro_de_usuario.html` no navegador para iniciar a navegação.
-2. Use o menu do topo ou do rodapé para acessar as demais páginas.
-3. Na página de contato, as mensagens ficam salvas no `localStorage` do navegador.
-
-## Observações
-
-- O projeto está em formato estático e não depende de backend.
-- Os dados inseridos nos formulários não são enviados para um servidor.
-- A persistência do formulário de contato acontece apenas localmente no navegador.
-
-## Próximos Passos
-
-- Publicar o projeto em um repositório GitHub.
-- Substituir os arquivos do ramo principal com a versão final organizada.
-- Opcionalmente, adicionar validações e refinamentos visuais nas páginas.
