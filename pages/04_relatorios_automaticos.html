@@ -1,194 +1,124 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wasteless | Relatórios Automáticos</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../css/style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    </head>
-    <body class="d-flex flex-column min-vh-100">
-      <header class="container-fluid p-4 text-white text-center site-header">
-      <h1 class="h3 mb-2">Projeto Wasteless</h1>
-      <p class="mb-3">Redimensionamento Responsivo</p>
-      <ul class="nav justify-content-center">
-        <li class="nav-item">
-          <a
-            class="nav-link active text-white"
-            aria-current="page"
-            href="../01_cadastro_de_usuario.html"
-            >Cadastro de Usuário</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wasteless | Relatórios Automáticos</title>
+</head>
+<body>
+  <header>
+    <h1>Projeto Wasteless</h1>
+    <p>Redimensionamento Responsivo</p>
+
+    <nav>
+      <ul>
+        <li>
+          <a href="../01_cadastro_de_usuario.html">Cadastro de Usuário</a>
         </li>
-        <li class="nav-item"><a
-            class="nav-link text-white"
-            href="./02_registro_desperdicio.html"
-            >Registro de Desperdício</a
-          >
+        <li>
+          <a href="./02_registro_desperdicio.html">Registro de Desperdício</a>
         </li>
-        <li class="nav-item"><a
-            class="nav-link text-white"
-            href="./03_dashboard_recursos.html"
-            >Dashboard de Recursos</a
-          >
+        <li>
+          <a href="./03_dashboard_recursos.html">Dashboard de Recursos</a>
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-white"
-            href="./04_relatorios_automaticos.html"
-            >Relatórios Automáticos</a
-          >
+        <li>
+          <a href="./04_relatorios_automaticos.html">Relatórios Automáticos</a>
         </li>
-        <li class="nav-item"><a
-            class="nav-link text-white"
-            href="./05_fale_conosco.html"
-            >Fale Conosco</a
-          >
+        <li>
+          <a href="./05_fale_conosco.html">Fale Conosco</a>
         </li>
       </ul>
-    </header>
+    </nav>
+  </header>
 
-    <main class="flex-grow-1">
-      <div class="container py-5">
-        <div class="text-center mb-4">
-          <h2 class="h4 mb-2">Relatórios Automáticos</h2>
-          <p class="mb-0">Preencha os dados para gerar um resumo simples do desperdício.</p>
+  <main>
+    <section>
+      <h2>Relatórios Automáticos</h2>
+      <p>Preencha os dados para gerar um resumo simples do desperdício.</p>
+
+      <form>
+        <div>
+          <label for="periodo">Período</label>
+          <select id="periodo">
+            <option value="">Selecione</option>
+            <option value="dia">Diário</option>
+            <option value="semana">Semanal</option>
+            <option value="mes">Mensal</option>
+          </select>
         </div>
 
-        <div class="mx-auto" style="max-width: 720px">
-          <form class="card shadow-sm p-4">
-            <div class="mb-3">
-              <label for="periodo" class="form-label">Período</label>
-              <select id="periodo" class="form-select">
-                <option value="">Selecione</option>
-                <option value="dia">Diário</option>
-                <option value="semana">Semanal</option>
-                <option value="mes">Mensal</option>
-              </select>
-            </div>
-
-            <div class="row g-3 mb-3">
-              <div class="col-md-6">
-                <label for="sobra" class="form-label">Sobra (kg)</label>
-                <input type="number" id="sobra" class="form-control" placeholder="Ex.: 10" />
-              </div>
-              <div class="col-md-6">
-                <label for="producao" class="form-label">Produção (kg)</label>
-                <input type="number" id="producao" class="form-control" placeholder="Ex.: 100" />
-              </div>
-            </div>
-
-            <div class="d-flex flex-wrap gap-2">
-              <button type="button" class="btn btn-primary" onclick="gerarRelatorio()">Gerar Relatório</button>
-              <button type="button" class="btn btn-outline-secondary" onclick="limparRelatorio()">Limpar</button>
-            </div>
-          </form>
-
-          <div class="mt-4">
-            <div class="mb-3 p-3 bg-light rounded-3">
-              <strong>Resultado do Relatório</strong>
-              <p id="resultadoRelatorio" class="mb-0 mt-2">Nenhum relatório gerado ainda.</p>
-            </div>
-
-            <div class="mb-3 p-3 bg-light rounded-3">
-              <strong>Sugestão Inteligente</strong>
-              <p id="sugestaoInteligente" class="mb-0 mt-2">Preencha os dados para receber uma sugestão.</p>
-            </div>
-
-            <div class="mb-3 p-3 bg-light rounded-3">
-              <strong>Sugestão de Doação</strong>
-              <p id="sugestaoDoacao" class="mb-0 mt-2">Preencha os dados para ver opções de doação.</p>
-            </div>
-
-            <div class="p-3 bg-light rounded-3">
-              <strong>Histórico:</strong>
-              <div id="historico" class="mt-2"></div>
-            </div>
-          </div>
+        <div>
+          <label for="sobra">Sobra (kg)</label>
+          <input
+            type="number"
+            id="sobra"
+            placeholder="Ex.: 10"
+          />
         </div>
-      </div>
 
-      <script>
-        const historico = [];
+        <div>
+          <label for="producao">Produção (kg)</label>
+          <input
+            type="number"
+            id="producao"
+            placeholder="Ex.: 100"
+          />
+        </div>
 
-        function gerarRelatorio() {
-          const periodo = document.getElementById("periodo").value;
-          const sobra = Number(document.getElementById("sobra").value);
-          const producao = Number(document.getElementById("producao").value);
+        <div>
+          <button type="button">Gerar Relatório</button>
+          <button type="button">Limpar</button>
+        </div>
+      </form>
 
-          if (!periodo || Number.isNaN(sobra) || Number.isNaN(producao)) {
-            alert("Preencha período, sobra e produção.");
-            return;
-          }
+      <section>
+        <h3>Resultado do Relatório</h3>
+        <p>Nenhum relatório gerado ainda.</p>
+      </section>
 
-          const percentual = producao > 0 ? ((sobra / producao) * 100).toFixed(1) : "0.0";
-          const periodoTexto = periodo === "dia" ? "Diário" : periodo === "semana" ? "Semanal" : "Mensal";
+      <section>
+        <h3>Sugestão Inteligente</h3>
+        <p>Preencha os dados para receber uma sugestão.</p>
+      </section>
 
-          const resultado = `Período: ${periodoTexto} | Sobra: ${sobra} kg | Produção: ${producao} kg | Índice: ${percentual}%`;
-          document.getElementById("resultadoRelatorio").innerHTML = resultado;
-          document.getElementById("sugestaoInteligente").innerHTML =
-            percentual > 20 ? "Sugestão: rever compras e armazenamento." : "Sugestão: manter o planejamento atual e monitorar o fluxo.";
-          document.getElementById("sugestaoDoacao").innerHTML =
-            sobra > 0 ? "Sugestão: avaliar doação de excedentes em bom estado." : "Sem excedentes para doação no momento.";
+      <section>
+        <h3>Sugestão de Doação</h3>
+        <p>Preencha os dados para ver opções de doação.</p>
+      </section>
 
-          historico.unshift(resultado);
-          document.getElementById("historico").innerHTML = historico
-            .slice(0, 5)
-            .map(item => `<div>${item}</div>`)
-            .join("");
-        }
+      <section>
+        <h3>Histórico</h3>
+        <div></div>
+      </section>
+    </section>
+  </main>
 
-        function limparRelatorio() {
-          document.getElementById("periodo").value = "";
-          document.getElementById("sobra").value = "";
-          document.getElementById("producao").value = "";
-          document.getElementById("resultadoRelatorio").innerHTML = "Nenhum relatório gerado ainda.";
-          document.getElementById("sugestaoInteligente").innerHTML = "Preencha os dados para receber uma sugestão.";
-          document.getElementById("sugestaoDoacao").innerHTML = "Preencha os dados para ver opções de doação.";
-        }
-      </script>
-    </main>
+  <footer>
+    <p>Projeto Wasteless</p>
 
-    <footer
-      class="container-fluid p-4 text-white text-center site-footer mt-auto"
-    >
-      <p class="mb-2">Projeto Wasteless</p>
-      <ul class="nav justify-content-center">
-        <li class="nav-item">
-          <a class="nav-link text-white" href="../01_cadastro_de_usuario.html"
-            >Inicio</a
-          >
+    <nav>
+      <ul>
+        <li>
+          <a href="../01_cadastro_de_usuario.html">Início</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="./03_dashboard_recursos.html"
-            >Sobre</a
-          >
+        <li>
+          <a href="./03_dashboard_recursos.html">Sobre</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="./02_registro_desperdicio.html"
-            >Registro</a
-          >
+        <li>
+          <a href="./02_registro_desperdicio.html">Registro</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="./05_fale_conosco.html"
-            >Recursos</a
-          >
+        <li>
+          <a href="./05_fale_conosco.html">Recursos</a>
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link active text-white"
-            aria-current="page"
-            href="./04_relatorios_automaticos.html"
-            >Relatórios Automáticos</a
-          >
+        <li>
+          <a href="./04_relatorios_automaticos.html">
+            Relatórios Automáticos
+          </a>
         </li>
       </ul>
-      <small class="d-block mt-3"
-        >Consumo consciente e reducao de desperdicio.</small
-      >
-    </footer>
-  </body>
+    </nav>
+
+    <small>Consumo consciente e redução de desperdício.</small>
+  </footer>
+</body>
 </html>
