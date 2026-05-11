@@ -109,40 +109,8 @@
 
           <hr />
 
-          <button type="button" class="btn btn-primary" onclick="mostrar()">Enviar</button>
-
-          <p id="resultado" class="mt-3"></p>
-        </form>
-
-        <script>
-          function mostrar(){
-
-            if(
-                document.forms[0].pergunta1.value == "" ||
-                document.forms[0].pergunta2.value == "" ||
-                document.forms[0].pergunta3.value == "" ||
-                document.forms[0].pergunta4.value == "" ||
-                document.forms[0].pergunta5.value == "" ||
-                document.forms[0].data_desperdicio.value == ""
-            ){
-
-                alert("Responda todas as perguntas.");
-
-            }
-
-            else{
-                document.getElementById("resultado").innerHTML =
-                " | Data: " + document.forms[0].data_desperdicio.value + "<br>" +
-                " | Tipo do alimento: " + document.forms[0].pergunta1.value + "<br>" +
-                " | Quantidade desperdiçada: " + document.forms[0].pergunta2.value + "<br>" +
-                " | Motivo: " + document.forms[0].pergunta3.value + "<br>" +
-                " | Poderia ter sido doado: " + document.forms[0].pergunta4.value + "<br>" +
-                " | Frequência do desperdício: " + document.forms[0].pergunta5.value;
-
-            }
-
-          }
-        </script>
+         <button type="submit">Enviar</button>
+   
       </div>
     </main>
 
