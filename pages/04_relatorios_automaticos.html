@@ -4,121 +4,132 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wasteless | Relatórios Automáticos</title>
+  <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <header>
-    <h1>Projeto Wasteless</h1>
-    <p>Redimensionamento Responsivo</p>
 
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../01_cadastro_de_usuario.html" class="site-logo">
+       Wasteless
+    </a>
     <nav>
-      <ul>
-        <li>
-          <a href="../01_cadastro_de_usuario.html">Cadastro de Usuário</a>
-        </li>
-        <li>
-          <a href="./02_registro_desperdicio.html">Registro de Desperdício</a>
-        </li>
-        <li>
-          <a href="./03_dashboard_recursos.html">Dashboard de Recursos</a>
-        </li>
-        <li>
-          <a href="./04_relatorios_automaticos.html">Relatórios Automáticos</a>
-        </li>
-        <li>
-          <a href="./05_fale_conosco.html">Fale Conosco</a>
-        </li>
+      <ul class="site-nav">
+        <li><a href="../01_cadastro_de_usuario.html">Cadastro</a></li>
+        <li><a href="./02_registro_desperdicio.html">Registro</a></li>
+        <li><a href="./03_dashboard_recursos.html">Dashboard</a></li>
+        <li><a href="./04_relatorios_automaticos.html" class="active">Relatórios</a></li>
+        <li><a href="./05_fale_conosco.html">Fale Conosco</a></li>
       </ul>
-    </nav>
-  </header>
+    </nav>  
+  </div>
+  <ul class="mobile-nav">
+    <li><a href="../01_cadastro_de_usuario.html">Cadastro</a></li>
+    <li><a href="./02_registro_desperdicio.html">Registro</a></li>
+    <li><a href="./03_dashboard_recursos.html">Dashboard</a></li>
+    <li><a href="./04_relatorios_automaticos.html" class="active">Relatórios</a></li>
+    <li><a href="./05_fale_conosco.html">Fale Conosco</a></li>
+  </ul>
+</header>
 
-  <main>
-    <section>
-      <h2>Relatórios Automáticos</h2>
-      <p>Preencha os dados para gerar um resumo simples do desperdício.</p>
+<main>
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Relatórios Automáticos</h1>
+      <p>Gere análises detalhadas e receba sugestões inteligentes de redução de desperdício</p>
+    </div>
 
-      <form>
-        <div>
-          <label for="periodo">Período</label>
-          <select id="periodo">
-            <option value="">Selecione</option>
-            <option value="dia">Diário</option>
-            <option value="semana">Semanal</option>
-            <option value="mes">Mensal</option>
-          </select>
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:32px;align-items:start;">
+
+      <!-- Form -->
+      <div class="card">
+        <h3 style="font-size:1rem;margin-bottom:20px;"> Parâmetros do Relatório</h3>
+        <form id="relatorio-form" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="periodo">Período de análise <span class="required">*</span></label>
+            <select class="form-control" id="periodo">
+              <option value="">Selecione</option>
+              <option value="dia">Diário</option>
+              <option value="semana">Semanal</option>
+              <option value="mes">Mensal</option>
+            </select>
+            <span class="field-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="sobra">Sobra / Perda (kg) <span class="required">*</span></label>
+            <input class="form-control" type="number" id="sobra" min="0" step="0.1" placeholder="Ex.: 15" />
+            <span class="field-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="producao">Produção total (kg) <span class="required">*</span></label>
+            <input class="form-control" type="number" id="producao" min="1" step="0.1" placeholder="Ex.: 100" />
+            <span class="field-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="custo">Custo por kg (R$) <span style="font-weight:400;color:var(--text-muted)">(opcional)</span></label>
+            <input class="form-control" type="number" id="custo" min="0" step="0.01" placeholder="Ex.: 8.50" />
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-ghost" id="limpar-btn">Limpar</button>
+            <button type="submit" class="btn btn-primary" style="flex:1"> Gerar Relatório</button>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Results -->
+      <div>
+        <div id="resultado-section" style="display:none">
+
+          <div class="result-box" id="resultado-box">
+            <h3> Resultado do Relatório</h3>
+          </div>
+
+          <div id="sugestao-inteligente" class="suggestion-box" style="margin-top:16px;"></div>
+          <div id="sugestao-doacao"      class="suggestion-box" style="margin-top:16px;"></div>
+
         </div>
 
-        <div>
-          <label for="sobra">Sobra (kg)</label>
-          <input
-            type="number"
-            id="sobra"
-            placeholder="Ex.: 10"
-          />
+        <div id="resultado-empty">
+          <div class="empty-state" style="margin-top:0;padding:60px 24px;">
+            <div class="icon"></div>
+            <p>Preencha os parâmetros ao lado e clique em "Gerar Relatório".</p>
+          </div>
         </div>
 
-        <div>
-          <label for="producao">Produção (kg)</label>
-          <input
-            type="number"
-            id="producao"
-            placeholder="Ex.: 100"
-          />
+        <!-- Histórico -->
+        <div class="card" style="margin-top:24px;">
+          <h3 style="font-size:1rem;margin-bottom:16px;"> Histórico de Relatórios</h3>
+          <div id="historico-lista">
+            <div class="empty-state"><p>Nenhum relatório gerado ainda.</p></div>
+          </div>
         </div>
 
-        <div>
-          <button type="button">Gerar Relatório</button>
-          <button type="button">Limpar</button>
-        </div>
-      </form>
+      </div>
+    </div>
+  </div>
+</main>
 
-      <section>
-        <h3>Resultado do Relatório</h3>
-        <p>Nenhum relatório gerado ainda.</p>
-      </section>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Wasteless</div>
+    <ul class="footer-nav">
+      <li><a href="../01_cadastro_de_usuario.html">Cadastro</a></li>
+      <li><a href="./02_registro_desperdicio.html">Registro</a></li>
+      <li><a href="./03_dashboard_recursos.html">Dashboard</a></li>
+      <li><a href="./04_relatorios_automaticos.html">Relatórios</a></li>
+      <li><a href="./05_fale_conosco.html">Fale Conosco</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Wasteless · Consumo consciente e redução de desperdício</p>
+  </div>
+</footer>
 
-      <section>
-        <h3>Sugestão Inteligente</h3>
-        <p>Preencha os dados para receber uma sugestão.</p>
-      </section>
+<script src="../js/app.js"></script>
 
-      <section>
-        <h3>Sugestão de Doação</h3>
-        <p>Preencha os dados para ver opções de doação.</p>
-      </section>
-
-      <section>
-        <h3>Histórico</h3>
-        <div></div>
-      </section>
-    </section>
-  </main>
-
-  <footer>
-    <p>Projeto Wasteless</p>
-
-    <nav>
-      <ul>
-        <li>
-          <a href="../01_cadastro_de_usuario.html">Início</a>
-        </li>
-        <li>
-          <a href="./03_dashboard_recursos.html">Sobre</a>
-        </li>
-        <li>
-          <a href="./02_registro_desperdicio.html">Registro</a>
-        </li>
-        <li>
-          <a href="./05_fale_conosco.html">Recursos</a>
-        </li>
-        <li>
-          <a href="./04_relatorios_automaticos.html">
-            Relatórios Automáticos
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <small>Consumo consciente e redução de desperdício.</small>
-  </footer>
 </body>
 </html>
