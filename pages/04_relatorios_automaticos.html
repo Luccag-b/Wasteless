@@ -47,7 +47,7 @@
         <form id="relatorio-form" novalidate>
 
           <div class="form-group">
-            <label class="form-label" for="periodo">Período de análise <span class="required">*</span></label>
+            <label class="form-label">Período de análise <span class="required">*</span></label>
             <select class="form-control" id="periodo">
               <option value="">Selecione</option>
               <option value="dia">Diário</option>
@@ -58,25 +58,25 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="sobra">Sobra / Perda (kg) <span class="required">*</span></label>
+            <label class="form-label" >Sobra / Perda (kg) <span class="required">*</span></label>
             <input class="form-control" type="number" id="sobra" min="0" step="0.1" placeholder="Ex.: 15" />
             <span class="field-error"></span>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="producao">Produção total (kg) <span class="required">*</span></label>
+            <label class="form-label" >Produção total (kg) <span class="required">*</span></label>
             <input class="form-control" type="number" id="producao" min="1" step="0.1" placeholder="Ex.: 100" />
             <span class="field-error"></span>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="custo">Custo por kg (R$) <span style="font-weight:400;color:var(--text-muted)">(opcional)</span></label>
+            <label class="form-label" >Custo por kg (R$) <span style="font-weight:400;color:var(--text-muted)">(opcional)</span></label>
             <input class="form-control" type="number" id="custo" min="0" step="0.01" placeholder="Ex.: 8.50" />
           </div>
 
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             <button type="button" class="btn btn-ghost" id="limpar-btn">Limpar</button>
-            <button type="submit" class="btn btn-primary" style="flex:1"> Gerar Relatório</button>
+            <button type="submit" class="btn btn-primary" > Gerar Relatório</button>
           </div>
 
         </form>
