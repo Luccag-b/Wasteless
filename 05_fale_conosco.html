@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wasteless | Fale Conosco</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../01_cadastro_de_usuario.html" class="site-logo">
+       Wasteless
+    </a>
+    <nav>
+      <ul class="site-nav">
+        <li><a href="../01_cadastro_de_usuario.html">Cadastro</a></li>
+        <li><a href="./02_registro_desperdicio.html">Registro</a></li>
+        <li><a href="./03_dashboard_recursos.html">Dashboard</a></li>
+        <li><a href="./04_relatorios_automaticos.html">Relatórios</a></li>
+        <li><a href="./05_fale_conosco.html" class="active">Fale Conosco</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <ul class="mobile-nav">
+    <li><a href="../01_cadastro_de_usuario.html">Cadastro</a></li>
+    <li><a href="./02_registro_desperdicio.html">Registro</a></li>
+    <li><a href="./03_dashboard_recursos.html">Dashboard</a></li>
+    <li><a href="./04_relatorios_automaticos.html">Relatórios</a></li>
+    <li><a href="./05_fale_conosco.html" class="active">Fale Conosco</a></li>
+  </ul>
+</header>
+
+<main>
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Fale Conosco</h1>
+      <p>Entre em contato com a equipe Wasteless</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+
+      <!-- Formulário -->
+      <div>
+        <div class="card">
+          <h3 style="font-size:1rem;margin-bottom:20px;"> Envie sua mensagem</h3>
+          <form id="contato-form" onsubmit="return false;">
+
+            <div class="form-group">
+              <label class="form-label" >Nome <span class="required">*</span></label>
+              <input class="form-control" type="text" id="nome" placeholder="Seu nome completo" autocomplete="name" />
+              <span class="field-error"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" >E-mail <span class="required">*</span></label>
+              <input class="form-control" type="email" id="email" placeholder="seu@email.com" autocomplete="email" />
+              <span class="field-error"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" >Telefone <span style="font-weight:400;color:var(--text-muted)">(opcional)</span></label>
+              <input class="form-control" type="tel" id="telefone" placeholder="(11) 99999-9999" autocomplete="tel" />
+              <span class="field-error"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" >Assunto <span class="required">*</span></label>
+              <select class="form-control" id="assunto">
+                <option value="">Selecione</option>
+                <option>Dúvida</option>
+                <option>Suporte técnico</option>
+                <option>Financeiro</option>
+                <option>Parceria</option>
+                <option>Outro</option>
+              </select>
+              <span class="field-error"></span>
+            </div>
+
+            <div class="form-group">
+              
+              <textarea class="form-control" id="mensagem" rows="5" maxlength="500" placeholder="Digite sua mensagem..."></textarea>
+              <div class="char-counter" id="msg-counter">0 / 500</div>
+              <span class="field-error"></span>
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-ghost" id="limpar-btn">Limpar</button>
+              <button type="submit" class="btn btn-primary" onclick="verificarEmail()" style="flex:1">📨 Enviar mensagem</button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Info -->
+        <div class="contact-info" style="margin-top:20px;">
+          <div class="contact-info-item">
+            <div><strong>E-mail</strong> contato@wasteless.com.br</div>
+          </div>
+          <div class="contact-info-item">
+            
+            <div><strong>Telefone</strong> (11) 3000-0000 · Seg–Sex, 9h–18h</div>
+          </div>
+          <div class="contact-info-item">
+            
+            <div><strong>Endereço</strong> Av. Paulista, 1234 — São Paulo, SP</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensagens enviadas -->
+      <div>
+        <p class="section-title">Mensagens enviadas:</p>
+        <div id="mensagens-lista">
+          <div class="empty-state"><p>Nenhuma mensagem enviada ainda.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo"><span>🌿</span> Wasteless</div>
+    <ul class="footer-nav">
+      <li><a href="../01_cadastro_de_usuario.html">Cadastro</a></li>
+      <li><a href="./02_registro_desperdicio.html">Registro</a></li>
+      <li><a href="./03_dashboard_recursos.html">Dashboard</a></li>
+      <li><a href="./04_relatorios_automaticos.html">Relatórios</a></li>
+      <li><a href="./05_fale_conosco.html">Fale Conosco</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Wasteless · Consumo consciente e redução de desperdício</p>
+  </div>
+</footer>
+
+<script src="../js/code.js"></script>
+</body>
+</html>
