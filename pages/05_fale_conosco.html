@@ -46,7 +46,7 @@
       <div>
         <div class="card">
           <h3 style="font-size:1rem;margin-bottom:20px;"> Envie sua mensagem</h3>
-          <form id="contato-form" novalidate>
+          <form id="contato-form" onsubmit="return false;">
 
             <div class="form-group">
               <label class="form-label" >Nome <span class="required">*</span></label>
@@ -88,7 +88,7 @@
 
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
               <button type="button" class="btn btn-ghost" id="limpar-btn">Limpar</button>
-              <button type="submit" class="btn btn-primary" style="flex:1">📨 Enviar mensagem</button>
+              <button type="submit" class="btn btn-primary" onclick="verificarEmail()" style="flex:1">📨 Enviar mensagem</button>
             </div>
 
           </form>
