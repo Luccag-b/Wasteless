@@ -22,7 +22,6 @@
         <li><a href="./05_fale_conosco.html" class="active">Fale Conosco</a></li>
       </ul>
     </nav>
-    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
   <ul class="mobile-nav">
     <li><a href="../01_cadastro_de_usuario.html">Cadastro</a></li>
@@ -46,7 +45,7 @@
       <div>
         <div class="card">
           <h3 style="font-size:1rem;margin-bottom:20px;"> Envie sua mensagem</h3>
-          <form id="contato-form" onsubmit="return false;">
+          <form id="contato-form">
 
             <div class="form-group">
               <label class="form-label" >Nome <span class="required">*</span></label>
@@ -62,7 +61,7 @@
 
             <div class="form-group">
               <label class="form-label" >Telefone <span style="font-weight:400;color:var(--text-muted)">(opcional)</span></label>
-              <input class="form-control" type="tel" id="telefone" placeholder="(11) 99999-9999" autocomplete="tel" />
+              <input class="form-control" type="tel" id="telefone" placeholder="(11) 99999-9999"  />
               <span class="field-error"></span>
             </div>
 
@@ -88,7 +87,7 @@
 
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
               <button type="button" class="btn btn-ghost" id="limpar-btn">Limpar</button>
-              <button type="submit" class="btn btn-primary" onclick="verificarEmail()" style="flex:1">📨 Enviar mensagem</button>
+              <button type="submit" class="btn btn-primary" onclick="verificarEmail()" style="flex:1"> Enviar mensagem</button>
             </div>
 
           </form>
@@ -124,7 +123,7 @@
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-logo"><span>🌿</span> Wasteless</div>
+    <div class="footer-logo">Wasteless</div>
     <ul class="footer-nav">
       <li><a href="../01_cadastro_de_usuario.html">Cadastro</a></li>
       <li><a href="./02_registro_desperdicio.html">Registro</a></li>

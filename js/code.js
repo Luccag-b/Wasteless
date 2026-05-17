@@ -1,3 +1,5 @@
+// FALE CONOSCO - VALIDAÇÃO DE FORMULÁRIO -------------------
+
 function verificarEmail() {
   var nome = document.getElementById("nome").value;
   var email = document.getElementById("email").value;
