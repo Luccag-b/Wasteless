@@ -19,7 +19,6 @@ O objetivo do projeto é apoiar o registro de desperdício, exibir um painel de 
 - HTML5
 - CSS3
 - JavaScript
-- Bootstrap 5
 
 ## Estrutura do Projeto
 
