@@ -54,19 +54,19 @@
               <option value="semana">Semanal</option>
               <option value="mes">Mensal</option>
             </select>
-            <span class="field-error"></span>
+            <span class="field-error" id="periodo-error"></span>
           </div>
 
           <div class="form-group">
             <label class="form-label" >Sobra / Perda (kg) <span class="required">*</span></label>
             <input class="form-control" type="number" id="sobra" min="0" step="0.1" placeholder="Ex.: 15" />
-            <span class="field-error"></span>
+            <span class="field-error" id="sobra-error"></span>
           </div>
 
           <div class="form-group">
             <label class="form-label" >Produção total (kg) <span class="required">*</span></label>
             <input class="form-control" type="number" id="producao" min="1" step="0.1" placeholder="Ex.: 100" />
-            <span class="field-error"></span>
+            <span class="field-error" id="producao-error"></span>
           </div>
 
           <div class="form-group">
@@ -91,7 +91,7 @@
           </div>
 
           <div id="sugestao-inteligente" class="suggestion-box" style="margin-top:16px;"></div>
-          <div id="sugestao-doacao"      class="suggestion-box" style="margin-top:16px;"></div>
+          <div id="sugestao-doacao" class="suggestion-box" style="margin-top:16px;"></div>
 
         </div>
 
@@ -129,7 +129,7 @@
   </div>
 </footer>
 
-<script src="../js/app.js"></script>
+<script src="../js/relatorios.js"></script>
 
 </body>
 </html>
