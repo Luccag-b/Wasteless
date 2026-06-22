@@ -157,6 +157,11 @@ img { display: block; max-width: 100%; }
 
 .site-logo:hover { color: var(--text); }
 
+/* Image logo sizing */
+.site-logo-img { height: 115px; width: auto; display: block; }
+.footer-logo-img { height: 120px; width: auto; display: block; }
+.site-logo::before { display: none; }
+
 /* Nav links */
 .site-nav {
   display: flex;
@@ -831,16 +836,6 @@ select.form-control option {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.footer-logo::before {
-  content: '';
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--accent);
 }
 
 .footer-nav {
