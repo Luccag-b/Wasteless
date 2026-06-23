@@ -1,59 +1,57 @@
 // FALE CONOSCO - VALIDAÇÃO DE FORMULÁRIO -------------------
 
 function verificarEmail() {
-  var nome = document.getElementById("nome").value;
+  var nome = document.getElementById("nome").value.trim();
   var email = document.getElementById("email").value;
   var assunto = document.getElementById("assunto").value;
   var mensagem = document.getElementById("mensagem").value;
   var telefone = document.getElementById("telefone").value;
 
-  var temArroba = false;
-  var temPonto = false;
-
-  // nome
-  if (nome == "") {
-    alert("Digite o nome");
+  // Nome e sobrenome
+  if (nome === "") {
+    alert("Digite o nome e sobrenome");
     return;
   }
 
-  // email vazio
+var partes = nome.split(" ");
+
+if (partes.length < 2) {
+    alert("Digite o nome e sobrenome");
+    return;
+}
+
+if (partes[0].length < 2 || partes[1].length < 2) {
+    alert("Nome e sobrenome devem ter pelo menos 2 letras");
+    return;
+}
+
+  // E-mail
   if (email == "") {
     alert("Digite seu e-mail");
     return;
   }
 
-  // assunto
+  // Assunto
   if (assunto == "") {
     alert("Selecione um assunto");
     return;
   }
 
-  // mensagem
+  // Mensagem
   if (mensagem == "") {
     alert("Digite sua mensagem");
     return;
   }
 
-  // validar email
-  for (var i = 0; i < email.length; i++) {
-    if (email[i] == "@") {
-      temArroba = true;
-    }
-    if (email[i] == ".") {
-      temPonto = true;
-    }
-  }
-
-  if (temArroba == false || temPonto == false) {
+  // Validar e-mail
+  if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
     alert("E-mail inválido");
     return;
   }
 
   // telefone (opcional)
   if (telefone != "") {
-
     for (var i = 0; i < telefone.length; i++) {
-
       if (
         telefone[i] != "0" &&
         telefone[i] != "1" &&
@@ -73,11 +71,9 @@ function verificarEmail() {
         alert("Telefone inválido (somente números)");
         return;
       }
-
     }
-
   }
 
-  alert("Enviado com sucesso!");
+  alert("Mensagem enviada com sucesso!");
 }
 
