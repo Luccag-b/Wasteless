@@ -133,13 +133,13 @@ function atualizarListaHistorico() {
 
     listaHistorico.innerHTML = historicoRelatorios.map(relatorio => {
         return `
-            <div style="border-left: 4px solid #2e7d32; padding: 10px; margin-bottom: 10px; background: #fafafa; border-radius: 0 4px 4px 0; font-size:0.9rem;">
+            <div style="border-left: 4px solid #2e7d32; padding: 10px; margin-bottom: 10px; background: #000; border-radius: 0 4px 4px 0; font-size:0.9rem;">
                 <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:4px;">
                     <span>📅 Gerado em: ${relatorio.data} (${relatorio.periodo.toUpperCase()})</span>
                     <span style="color: #d32f2f;">${relatorio.taxa}% de Perda</span>
                 </div>
                 <div style="color:#555;">Custo do desperdício: <strong>R$ ${relatorio.prejuizo}</strong></div>
-            </div>
+            </div> 
         `;
     }).join('');
 }
