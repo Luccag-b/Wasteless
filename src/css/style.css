@@ -121,7 +121,7 @@ img { display: block; max-width: 100%; }
 
 .header-inner {
   max-width: var(--max-w);
-  margin: 0 auto;
+  margin: 25px auto;
   padding: 0 28px;
   height: var(--nav-h);
   display: flex;

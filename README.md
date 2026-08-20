@@ -1,37 +1,18 @@
-# Wasteless
+# React + Vite
 
-Projeto front-end estático para cadastro, acompanhamento e análise de desperdícios, com navegação entre páginas e componentes construídos em HTML, CSS, JavaScript e Bootstrap.
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-## Visão Geral
+Currently, two official plugins are available:
 
-O objetivo do projeto é apoiar o registro de desperdício, exibir um painel de recursos e permitir o envio de mensagens pela página de contato. As telas foram organizadas para funcionar como um conjunto de páginas independentes, mas com menu compartilhado e layout consistente.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Páginas
+## React Compiler
 
-- Página inicial: cadastro de usuário com perfis, dados pessoais e observações.
-- Registro de desperdícios: formulário para informar data, tipo de alimento, quantidade, motivo, possibilidade de doação e frequência.
-- Dashboard de recursos: painel com cartões de indicadores e atalhos para as principais ações.
-- Relatórios automáticos: formulário para gerar resumo com período, sobra, produção, sugestões e histórico.
-- Fale Conosco: formulário de contato com armazenamento das mensagens no navegador.
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-## Tecnologias
+Note: This will impact Vite dev & build performances.
 
-- HTML5
-- CSS3
-- JavaScript
+## Expanding the Oxlint configuration
 
-## Estrutura do Projeto
-
-```text
-Wasteless-2/
-├─ 01_cadastro_de_usuario.html
-├─ css/
-│  └─ style.css
-├─ js/
-│  └─ code.js
-├─ pages/
-│  ├─ 02_registro_desperdicio.html
-│  ├─ 03_dashboard_recursos.html
-│  ├─ 04_relatorios_automaticos.html
-│  └─ 05_fale_conosco.html
-```
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
