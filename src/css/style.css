@@ -803,8 +803,25 @@ select.form-control option {
 .list-item:hover {
   border-color: var(--border-strong);
 }
+/* ═══════════════════════════════════════════════════
+   CONTACT INFO
+   ═══════════════════════════════════════════════════ */
+.contact-info {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: .85rem;
+  color: var(--text-2);
+}
 
-
+.contact-info-item strong {
+  color: var(--text);
+  display: block;
+}
 /* ═══════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════ */
