@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import logo from '../img/logo-wateless.png'
 
+
 const navItems = [
   { to: '/', label: 'Cadastro' },
   { to: '/registro-desperdicio', label: 'Registro' },
@@ -9,7 +10,9 @@ const navItems = [
   { to: '/fale-conosco', label: 'Fale Conosco' },
 ]
 
-const Header = () => {
+
+const Header = ({ logado }) => {
+  const navInvisivel = navItems.filter((item) => item.to === '/' || logado);
   return (
     <header className="site-header">
       <div className="header-inner">
@@ -18,7 +21,7 @@ const Header = () => {
         </NavLink>
         <nav>
           <ul className="site-nav">
-            {navItems.map((item) => (
+            {navInvisivel.map((item) => (
               <li key={item.to}>
                 <NavLink
                   to={item.to}
@@ -33,7 +36,7 @@ const Header = () => {
         </nav>
       </div>
       <ul className="mobile-nav">
-        {navItems.map((item) => (
+        {navInvisivel.map((item) => (
           <li key={item.to}>
             <NavLink
               to={item.to}

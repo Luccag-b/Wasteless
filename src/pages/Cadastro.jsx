@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import logo from '../img/logo-wateless.png'
 
-const Cadastro = () => {
+const Cadastro = ({ onCadastrarSucesso}) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = 'Wasteless | Cadastro de Usuário'
   }, [])
@@ -28,6 +31,8 @@ const Cadastro = () => {
     }
 
     alert('Usuário cadastrado com sucesso!')
+    onCadastrarSucesso()
+    navigate('/registro-desperdicio')
   }
 
   return (
