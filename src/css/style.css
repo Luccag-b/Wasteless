@@ -898,6 +898,21 @@ select.form-control option {
 
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
 
+    /* Página de Cadastro: as duas colunas empilham no mobile */
+  .lado-esquerdo {
+    width: 100%;
+    float: none;
+    padding: 24px 16px;
+  }
+
+  .lado-direito {
+    margin-left: 0;
+  }
+
+  .logo-imagem {
+    width: 100%;
+    max-width: 240px;
+  }
   /* Grids 2-col viram 1-col no mobile */
   [style*="grid-template-columns:1fr 1fr"],
   [style*="grid-template-columns:1fr 1.4fr"] {
@@ -913,6 +928,9 @@ select.form-control option {
 }
 
 @media (max-width: 480px) {
+  body {
+  overflow-x: hidden;
+}
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .stat-value { font-size: 1.8rem; }
   .btn-lg { padding: 12px 22px; font-size: .9rem; }
