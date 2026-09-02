@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
-const RelatoriosAutomaticos = () => {
+const RelatoriosAutomaticos = ({ usuarioEmail }) => {
   const formRef = useRef(null)
+  const chave = `relatoriosSalvos_${usuarioEmail}`
   const [historicoRelatorios, setHistoricoRelatorios] = useState(() => {
-    return JSON.parse(localStorage.getItem('relatoriosSalvos')) || []
+    return JSON.parse(localStorage.getItem(chave)) || []
   })
   const [resultadoVisivel, setResultadoVisivel] = useState(false)
   const [resultado, setResultado] = useState({ periodo: '', taxa: '', prejuizo: '' })
@@ -91,7 +92,7 @@ const RelatoriosAutomaticos = () => {
 
     const novoHistorico = [novoRelatorio, ...historicoRelatorios]
     setHistoricoRelatorios(novoHistorico)
-    localStorage.setItem('relatoriosSalvos', JSON.stringify(novoHistorico))
+    localStorage.setItem(chave, JSON.stringify(novoHistorico))
 
     return true
   }

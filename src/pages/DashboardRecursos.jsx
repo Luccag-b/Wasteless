@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const DashboardRecursos = () => {
+const DashboardRecursos = ({ usuarioEmail }) => {
+  const chave = `registroDesperdicio_${usuarioEmail}`
   const [historicoDesperdicio, setHistoricoDesperdicio] = useState(() => {
-    return JSON.parse(localStorage.getItem('registroDesperdicio')) || []
+    return JSON.parse(localStorage.getItem(chave)) || []
   })
 
   useEffect(() => {
@@ -11,16 +13,17 @@ const DashboardRecursos = () => {
 
   const handleClear = () => {
     if (confirm('Tem certeza que deseja apagar todo o histórico de desperdício?')) {
-      localStorage.removeItem('registroDesperdicio')
+      localStorage.removeItem(chave)
       setHistoricoDesperdicio([])
     }
   }
 
   // --- KPIs ---
+  const usuariosCadastrados = JSON.parse(localStorage.getItem('usuariosCadastrados')) || []
   const kpiRegistros = historicoDesperdicio.length
   const kpiDoacoes = historicoDesperdicio.filter((item) => item.doacao === 'Sim').length
   const kpiAlertas = historicoDesperdicio.filter((item) => item.frequencia === 'Diário').length
-  const kpiUsuarios = ''
+  const kpiUsuarios = usuariosCadastrados.length
 
   // --- Gráfico de barras por tipo ---
   const contagemTipos = { Frutas: 0, Carnes: 0, Laticínios: 0, Grãos: 0, Bebidas: 0, Outros: 0 }
@@ -212,10 +215,10 @@ const DashboardRecursos = () => {
           <div className="card">
             <h3 style={{ fontSize: '1rem', marginBottom: '16px' }}> Ações Rápidas</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <a className="btn btn-primary" href="/registro-desperdicio"> Registrar desperdício</a>
-              <a className="btn btn-outline" href="/relatorios-automaticos"> Ver relatórios</a>
-              <a className="btn btn-ghost" href="/fale-conosco"> Fale conosco</a>
-              <a className="btn btn-ghost" href="/"> Gerenciar usuários</a>
+              <Link className="btn btn-primary" to="/registro-desperdicio"> Registrar desperdício</Link>
+              <Link className="btn btn-outline" to="/relatorios-automaticos"> Ver relatórios</Link>
+              <Link className="btn btn-ghost" to="/fale-conosco"> Fale conosco</Link>
+              <Link className="btn btn-ghost" to="/"> Gerenciar usuários</Link>
             </div>
             <hr className="divider" />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -223,6 +226,23 @@ const DashboardRecursos = () => {
               <button className="btn btn-sm btn-danger" id="clear-btn" onClick={handleClear}> Apagar</button>
             </div>
           </div>
+        </div>
+
+        <div className="card" style={{ marginTop: '24px' }}>
+          <h3 style={{ fontSize: '1rem', marginBottom: '16px' }}>👥 Usuários Cadastrados</h3>
+          {usuariosCadastrados.length === 0 ? (
+            <div className="empty-state"><p>Nenhum usuário cadastrado ainda.</p></div>
+          ) : (
+            usuariosCadastrados.map((u) => (
+              <div key={u.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border, #2a2a2a)', fontSize: '0.9rem' }}>
+                <div>
+                  <strong>{u.nome}</strong>
+                  <p style={{ margin: '2px 0 0', fontSize: '0.8rem', color: 'var(--text-muted)' }}>{u.email} · {u.perfil} · {u.setor}</p>
+                </div>
+                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>📅 {u.data}</span>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </main>

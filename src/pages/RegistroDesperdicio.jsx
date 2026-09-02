@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
-const RegistroDesperdicio = () => {
+const RegistroDesperdicio = ({ usuarioEmail }) => {
   const formRef = useRef(null)
+  const chave = `registroDesperdicio_${usuarioEmail}`
   const [historicoDesperdicio, setHistoricoDesperdicio] = useState(() => {
-    return JSON.parse(localStorage.getItem('registroDesperdicio')) || []
+    return JSON.parse(localStorage.getItem(chave)) || []
   })
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const RegistroDesperdicio = () => {
 
     const novoHistorico = [novoRegistro, ...historicoDesperdicio]
     setHistoricoDesperdicio(novoHistorico)
-    localStorage.setItem('registroDesperdicio', JSON.stringify(novoHistorico))
+    localStorage.setItem(chave, JSON.stringify(novoHistorico))
     return true
   }
 

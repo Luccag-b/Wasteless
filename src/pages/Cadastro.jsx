@@ -1,17 +1,22 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import logo from '../img/logo-wateless.png'
 
 const Cadastro = ({ onCadastrarSucesso}) => {
   const navigate = useNavigate();
+  const [usuarios, setUsuarios] = useState(() => {
+    return JSON.parse(localStorage.getItem('usuariosCadastrados')) || []
+  })
 
   useEffect(() => {
     document.title = 'Wasteless | Cadastro de Usuário'
   }, [])
 
-  // Réplica fiel da função cadastrarUsuario() de js/cadastro.js
   const cadastrarUsuario = () => {
     const nome = document.getElementById('nome').value
+    const email = document.getElementById('email').value
+    const perfil = document.getElementById('perfil').value
+    const setor = document.getElementById('setor').value
 
     if (nome === '') {
       alert('Digite nome e sobrenome')
@@ -30,8 +35,21 @@ const Cadastro = ({ onCadastrarSucesso}) => {
       return
     }
 
+    const novoUsuario = {
+      id: Date.now(),
+      nome,
+      email,
+      perfil,
+      setor,
+      data: new Date().toLocaleDateString('pt-BR'),
+    }
+
+    const lista = [...usuarios, novoUsuario]
+    localStorage.setItem('usuariosCadastrados', JSON.stringify(lista))
+    setUsuarios(lista)
+
     alert('Usuário cadastrado com sucesso!')
-    onCadastrarSucesso()
+    onCadastrarSucesso(novoUsuario)
     navigate('/registro-desperdicio')
   }
 
@@ -205,16 +223,6 @@ const Cadastro = ({ onCadastrarSucesso}) => {
           </div>
         </div>
 
-        <div className="limpa-colunas"></div>
-
-        <div style={{ maxWidth: '680px', margin: '32px auto 0' }}>
-          <p className="section-title">Usuários Cadastrados</p>
-          <div id="usuarios-lista">
-            <div className="empty-state">
-              <p>Nenhum usuário cadastrado ainda.</p>
-            </div>
-          </div>
-        </div>
       </div>
     </main>
   )
