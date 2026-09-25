@@ -1,11 +1,27 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import MetaDesperdicioCard from '../components/MetaDesperdicioCard.jsx'
+import { calcularDesperdicioMesAtual } from '../utils/metaCalculo.js'
+import { getMeta, salvarMeta } from '../services/metaService.js'
 
 const DashboardRecursos = ({ usuarioEmail }) => {
   const chave = `registroDesperdicio_${usuarioEmail}`
   const [historicoDesperdicio, setHistoricoDesperdicio] = useState(() => {
     return JSON.parse(localStorage.getItem(chave)) || []
   })
+
+  const [metaDesperdicio, setMetaDesperdicio] = useState(() => {
+    return getMeta(usuarioEmail) || 50
+  })
+
+  const desperdicioMesAtual = calcularDesperdicioMesAtual(historicoDesperdicio)
+
+  const handleSalvarMeta = (novaMeta) => {
+    salvarMeta(usuarioEmail, novaMeta)
+    setMetaDesperdicio(novaMeta)
+  }
+
+  const mesNome = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(new Date())
 
   useEffect(() => {
     document.title = 'Wasteless | Dashboard de Recursos'
@@ -71,6 +87,13 @@ const DashboardRecursos = ({ usuarioEmail }) => {
             <div className="stat-label">Usuários cadastrados</div>
           </div>
         </div>
+
+        <MetaDesperdicioCard
+          meta={metaDesperdicio}
+          atual={desperdicioMesAtual}
+          onSalvarMeta={handleSalvarMeta}
+          mesNome={mesNome}
+        />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
           <div className="card">
