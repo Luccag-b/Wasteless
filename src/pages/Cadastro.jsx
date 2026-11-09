@@ -18,6 +18,7 @@ const Cadastro = ({ onCadastrarSucesso}) => {
   })
   const [buscandoCep, setBuscandoCep] = useState(false)
   const [erroCep, setErroCep] = useState('')
+  const [erroNumero, setErroNumero] = useState('')
 
   useEffect(() => {
     document.title = 'Wasteless | Cadastro de Usuário'
@@ -103,6 +104,28 @@ const Cadastro = ({ onCadastrarSucesso}) => {
 
     if (partes[0].length < 2 || partes[1].length < 2) {
       alert('Nome e sobrenome devem ter pelo menos 2 letras')
+      return
+    }
+
+    if (endereco.cep.replace(/\D/g, '').length !== 8) {
+      setErroCep('Digite um CEP válido com 8 dígitos')
+      alert('Digite um CEP válido com 8 dígitos')
+      return
+    }
+
+    if (buscandoCep) {
+      alert('Aguarde a busca do CEP terminar')
+      return
+    }
+
+    if (erroCep) {
+      alert(erroCep)
+      return
+    }
+
+    if (!endereco.numero.trim()) {
+      setErroNumero('Digite o número do endereço')
+      alert('Digite o número do endereço')
       return
     }
 
@@ -257,7 +280,9 @@ const Cadastro = ({ onCadastrarSucesso}) => {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '16px' }}>
                 <div className="form-group">
-                  <label className="form-label" htmlFor="cep">CEP</label>
+                  <label className="form-label" htmlFor="cep">
+                    CEP <span className="required">*</span>
+                  </label>
                   <input
                     className="form-control"
                     type="text"
@@ -269,6 +294,7 @@ const Cadastro = ({ onCadastrarSucesso}) => {
                     onChange={(e) => {
                       const cep = formatarCep(e.target.value)
                       atualizarEndereco('cep', cep)
+                      setErroCep('')
                       if (cep.length === 9) buscarCep(cep)
                     }}
                   />
@@ -291,14 +317,20 @@ const Cadastro = ({ onCadastrarSucesso}) => {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '16px' }}>
                 <div className="form-group">
-                  <label className="form-label" htmlFor="numero">Número</label>
+                  <label className="form-label" htmlFor="numero">
+                    Número <span className="required">*</span>
+                  </label>
                   <input
                     className="form-control"
                     type="text"
                     id="numero"
                     value={endereco.numero}
-                    onChange={(e) => atualizarEndereco('numero', e.target.value)}
+                    onChange={(e) => {
+                      atualizarEndereco('numero', e.target.value)
+                      setErroNumero('')
+                    }}
                   />
+                  <span className={`field-error${erroNumero ? ' show' : ''}`}>{erroNumero}</span>
                 </div>
                 <div className="form-group">
                   <label className="form-label" htmlFor="bairro">Bairro</label>
