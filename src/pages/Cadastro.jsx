@@ -8,9 +8,59 @@ const Cadastro = ({ onCadastrarSucesso}) => {
     return JSON.parse(localStorage.getItem('usuariosCadastrados')) || []
   })
 
+  const [endereco, setEndereco] = useState({
+    cep: '',
+    logradouro: '',
+    numero: '',
+    bairro: '',
+    cidade: '',
+    uf: '',
+  })
+  const [buscandoCep, setBuscandoCep] = useState(false)
+  const [erroCep, setErroCep] = useState('')
+
   useEffect(() => {
     document.title = 'Wasteless | Cadastro de Usuário'
   }, [])
+
+  const atualizarEndereco = (campo, valor) => {
+    setEndereco((atual) => ({ ...atual, [campo]: valor }))
+  }
+
+  const formatarCep = (valor) => {
+    const numeros = valor.replace(/\D/g, '').slice(0, 8)
+    return numeros.length > 5 ? `${numeros.slice(0, 5)}-${numeros.slice(5)}` : numeros
+  }
+
+  const buscarCep = async (valorCep) => {
+    const cep = valorCep.replace(/\D/g, '')
+    if (cep.length !== 8) return
+
+    setBuscandoCep(true)
+    setErroCep('')
+    try {
+      const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      if (!resposta.ok) throw new Error('Falha na consulta')
+      const dados = await resposta.json()
+
+      if (dados.erro) {
+        setErroCep('CEP não encontrado')
+        return
+      }
+
+      setEndereco((atual) => ({
+        ...atual,
+        logradouro: dados.logradouro || '',
+        bairro: dados.bairro || '',
+        cidade: dados.localidade || '',
+        uf: dados.uf || '',
+      }))
+    } catch {
+      setErroCep('Não foi possível consultar o CEP. Preencha manualmente.')
+    } finally {
+      setBuscandoCep(false)
+    }
+  }
 
   const cadastrarUsuario = () => {
     const nome = document.getElementById('nome').value
@@ -41,6 +91,7 @@ const Cadastro = ({ onCadastrarSucesso}) => {
       email,
       perfil,
       setor,
+      endereco,
       data: new Date().toLocaleDateString('pt-BR'),
     }
 
@@ -158,6 +209,89 @@ const Cadastro = ({ onCadastrarSucesso}) => {
                     autoComplete="new-password"
                   />
                   <span className="field-error"></span>
+                </div>
+              </div>
+
+              <p className="section-title">Endereço</p>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '16px' }}>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="cep">CEP</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="cep"
+                    inputMode="numeric"
+                    placeholder="00000-000"
+                    autoComplete="postal-code"
+                    value={endereco.cep}
+                    onChange={(e) => {
+                      const cep = formatarCep(e.target.value)
+                      atualizarEndereco('cep', cep)
+                      if (cep.length === 9) buscarCep(cep)
+                    }}
+                  />
+                  <span className="field-error">
+                    {buscandoCep ? 'Buscando...' : erroCep}
+                  </span>
+                </div>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="logradouro">Rua</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="logradouro"
+                    autoComplete="address-line1"
+                    value={endereco.logradouro}
+                    onChange={(e) => atualizarEndereco('logradouro', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '16px' }}>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="numero">Número</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="numero"
+                    value={endereco.numero}
+                    onChange={(e) => atualizarEndereco('numero', e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="bairro">Bairro</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="bairro"
+                    value={endereco.bairro}
+                    onChange={(e) => atualizarEndereco('bairro', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '16px' }}>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="cidade">Cidade</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="cidade"
+                    value={endereco.cidade}
+                    onChange={(e) => atualizarEndereco('cidade', e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="uf">UF</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="uf"
+                    maxLength="2"
+                    value={endereco.uf}
+                    onChange={(e) => atualizarEndereco('uf', e.target.value.toUpperCase())}
+                  />
                 </div>
               </div>
 
