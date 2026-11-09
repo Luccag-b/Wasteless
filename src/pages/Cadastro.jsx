@@ -111,6 +111,7 @@ const Cadastro = ({ onCadastrarSucesso}) => {
     setErroSenha(msgSenha)
     setErroConfirmar(msgConfirmar)
     if (msgSenha || msgConfirmar) {
+      alert(msgSenha || msgConfirmar)
       return
     }
 
@@ -230,7 +231,7 @@ const Cadastro = ({ onCadastrarSucesso}) => {
                       if (confirmar) setErroConfirmar(validarConfirmacao(e.target.value, confirmar))
                     }}
                   />
-                  <span className="field-error">{erroSenha}</span>
+                  <span className={`field-error${erroSenha ? ' show' : ''}`}>{erroSenha}</span>
                 </div>
                 <div className="form-group">
                   <label className="form-label">
@@ -248,7 +249,7 @@ const Cadastro = ({ onCadastrarSucesso}) => {
                       setErroConfirmar(validarConfirmacao(senha, e.target.value))
                     }}
                   />
-                  <span className="field-error">{erroConfirmar}</span>
+                  <span className={`field-error${erroConfirmar ? ' show' : ''}`}>{erroConfirmar}</span>
                 </div>
               </div>
 
@@ -271,7 +272,7 @@ const Cadastro = ({ onCadastrarSucesso}) => {
                       if (cep.length === 9) buscarCep(cep)
                     }}
                   />
-                  <span className="field-error">
+                  <span className={`field-error${buscandoCep || erroCep ? ' show' : ''}`}>
                     {buscandoCep ? 'Buscando...' : erroCep}
                   </span>
                 </div>
@@ -403,3 +404,4 @@ const Cadastro = ({ onCadastrarSucesso}) => {
 }
 
 export default Cadastro
+
