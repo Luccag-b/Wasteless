@@ -62,6 +62,27 @@ const Cadastro = ({ onCadastrarSucesso}) => {
     }
   }
 
+  const [senha, setSenha] = useState('')
+  const [confirmar, setConfirmar] = useState('')
+  const [erroSenha, setErroSenha] = useState('')
+  const [erroConfirmar, setErroConfirmar] = useState('')
+
+  const validarSenha = (valor) => {
+    if (!valor) return 'Digite uma senha'
+    if (valor.length < 6) return 'A senha deve ter no mínimo 6 caracteres'
+    if (/\s/.test(valor)) return 'A senha não pode conter espaços'
+    if (!/[A-Za-z]/.test(valor) || !/\d/.test(valor)) {
+      return 'A senha deve conter letras e números'
+    }
+    return ''
+  }
+
+  const validarConfirmacao = (valorSenha, valorConfirmar) => {
+    if (!valorConfirmar) return 'Confirme a senha'
+    if (valorSenha !== valorConfirmar) return 'As senhas não coincidem'
+    return ''
+  }
+
   const cadastrarUsuario = () => {
     const nome = document.getElementById('nome').value
     const email = document.getElementById('email').value
@@ -82,6 +103,14 @@ const Cadastro = ({ onCadastrarSucesso}) => {
 
     if (partes[0].length < 2 || partes[1].length < 2) {
       alert('Nome e sobrenome devem ter pelo menos 2 letras')
+      return
+    }
+
+    const msgSenha = validarSenha(senha)
+    const msgConfirmar = validarConfirmacao(senha, confirmar)
+    setErroSenha(msgSenha)
+    setErroConfirmar(msgConfirmar)
+    if (msgSenha || msgConfirmar) {
       return
     }
 
@@ -194,8 +223,14 @@ const Cadastro = ({ onCadastrarSucesso}) => {
                     id="senha"
                     placeholder="Mínimo 6 caracteres"
                     autoComplete="new-password"
+                    value={senha}
+                    onChange={(e) => {
+                      setSenha(e.target.value)
+                      setErroSenha(validarSenha(e.target.value))
+                      if (confirmar) setErroConfirmar(validarConfirmacao(e.target.value, confirmar))
+                    }}
                   />
-                  <span className="field-error"></span>
+                  <span className="field-error">{erroSenha}</span>
                 </div>
                 <div className="form-group">
                   <label className="form-label">
@@ -207,8 +242,13 @@ const Cadastro = ({ onCadastrarSucesso}) => {
                     id="confirm"
                     placeholder="Repita a senha"
                     autoComplete="new-password"
+                    value={confirmar}
+                    onChange={(e) => {
+                      setConfirmar(e.target.value)
+                      setErroConfirmar(validarConfirmacao(senha, e.target.value))
+                    }}
                   />
-                  <span className="field-error"></span>
+                  <span className="field-error">{erroConfirmar}</span>
                 </div>
               </div>
 
